@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <link rel="icon" type="image/png" href="gpi.png">
+  <title>DARET-ADMIN</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <link href="assets/css/style.css" rel="stylesheet">
+<style>
+	
+    .petite-image {
+        width: 30px; /* Largeur souhaitée */
+        height: auto; /* Hauteur automatique pour maintenir les proportions */
+    }
+    .flex-container {
+    display: flex;
+}
+
+</style>
+ 
+</head>
+
+<body>
+    <header id="header" class="fixed-top">
+        <div class="container d-flex align-items-center">
+         <a href="acceuil" class="logo me-auto"><img src="../images/daret3.png" alt="daret"></a>
+          <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+              <li><a href="acceuil" class="active">Acceuil</a></li>
+              <li><a href="/deconnexion">Se déconnecter</a></li>
+              
+    
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+          </nav><!-- .navbar -->
+    
+    
+        </div>
+      </header>
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs" style="background-color: rgb(27, 140, 140);">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>ADMIN</h2>
+          <ol>
+            <li><a href="acceuil">ACCEUIL</a></li>
+            <li>ADMIN</li>
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- ======= Blog Section ======= -->
+    <section id="blog" class="blog">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row">
+
+          <div class="col-lg-8 entries">
+            <div class="container mt-5">
+    <div class="panel panel-success">
+		     		<h3 style="color: aquamarine; text-align: center;">Liste des demandes de participations </h3>
+		     		<br>
+      <div class="panel-body">
+        <table class="table table-bordered table-hover">
+         <thead class="thead-dark">
+             <tr>
+            <th scope="col">Rib</th>
+            <th scope="col">Nombre de Participants</th>
+            <th scope="col">Role</th>
+            <th scope="col">Email de l'utilisateur</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Utilisez th:each pour itérer sur la liste de participants -->
+        <tr th:each="participant : ${participants}">
+            
+            <!-- Affichage de l'email de l'utilisateur -->
+            <td th:text="${participant.rib}"></td>
+            <td th:text="${participant.nbrpar}"></td>
+            <td th:text="${participant.role}"></td> 
+            <td th:if="${participant.user != null}" th:text="${participant.user.email}"></td>
+            <td>
+<div class="flex-container">
+    <a th:href="@{/accepter/{daretId}/{participantId}(daretId = ${participant.daret.id}, participantId = ${participant.id})}" class="btn">
+        <img src="/images/accepte.png" alt="Accepter Participant" class="petite-image">
+    </a>
+    <a th:href="@{/refuser/{participantId}(participantId = ${participant.id})}" class="btn">
+        <img src="/images/rejete.png" alt="Refuser Participant" class="petite-image">
+    </a>
+</div>
+
+
+
+
+       </td>            
+           </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+           
+            <div class="blog-pagination">
+              <ul class="justify-content-center">
+                <li class="active"><a href="#">1</a></li>
+                <li ><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+              </ul>
+            </div>
+
+          </div><!-- End blog entries list -->
+
+          <div class="col-lg-4">
+
+            <div class="sidebar">
+
+              <h3 class="sidebar-title">Search</h3>
+              <div class="sidebar-item search-form " >
+                <form action="">
+                  <input type="text">
+                  <button style="background-color: rgb(1, 103, 103);" type="submit"><i  class="bi bi-search"></i></button>
+                </form>
+              </div><!-- End sidebar search formn-->
+             <br>
+             <br>
+              <div class="sidebar-item categories container" >
+                <ul >
+                  <li><a class="sidebar-title" href="monProfile">Mon profile</a></li>
+                   <li><a class="sidebar-title" href="creer_daret">Creer les darets</a></li>
+                  <li><a class="sidebar-title" href="admin">les Darets en cours</a></li>
+                  <li><a class="sidebar-title" href="daretAct">Les Darets actuelles</a></li>
+                </ul>
+              </div><!-- End sidebar categories-->
+
+             
+             
+            </div><!-- End sidebar -->
+
+          </div><!-- End blog sidebar -->
+
+        </div>
+
+      </div>
+    </section><!-- End Blog Section -->
+       
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h3>IMAGINE UN
+              ENDROIT</h3>  <br><br>
+           
+          </div>
+
+   
+
+         
+
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container d-md-flex py-4">
+
+      <div class="me-md-auto text-center text-md-start">
+        <div class="copyright">
+          © COPYRIGHT 2023. "KONCEPT" BY NUNFOREST. ALL RIGHTS RESERVED.
+        </div>
+        <div class="credits">
+         
+        </div>
+      </div>
+    </div>
+  </footer>
+ <!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
